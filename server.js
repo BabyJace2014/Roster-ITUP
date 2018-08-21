@@ -32,7 +32,11 @@ app.set("view engine", "handlebars");
 // Initliazes the db connection & sets the Express App listening
 /////////////////////////////////////////////////////////////////
 
-db.sequelize.sync().then( function () {
+db.sequelize.sync({ force: true }).then( function () {
+    db.user.seedDB();
+    db.nflteam.seedDB();
+    db.nflplayer.seedDB();
+
     app.listen(PORT, function() {
         console.log("App listening on PORT " + PORT);
     });
