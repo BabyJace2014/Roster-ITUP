@@ -21,6 +21,9 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// serving public directory
+app.use(express.static(__dirname + '/public'));
+
 // Routes
 require("./controllers/rosteritup_controller.js")(app);
 
