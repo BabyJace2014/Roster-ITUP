@@ -14,10 +14,16 @@ var db = require("../models");
 //  GET route to retrieve specific user, by user_name
 //
 //  /api/user
-//  POST route to save a new user; expects object with parameters: name, password, _teamname (optional)_
+//  POST route to save a new user; expects object with parameters: name, password, <teamname>
 //
 //  /api/nflteams
 //  GET route to retrieve all teams in the database
+//
+//  /api/nflplayers
+//  GET route for returning all nflplayers
+//
+//  /api/teamroster/:team
+//  GET route for returning all nflplayers by team
 //
 /////////////////////////////////////////////////////////////////
 
@@ -72,8 +78,22 @@ module.exports = function(app) {
                 });
     });
 
-    // get nfl players by team
+    // GET route for returning all nflplayers
+    app.get("/api/nflplayers", function(req, res) {
 
-    // get nfl players by position
+        db.nflplayer.findAll({})
+                    .then(function(result) {
+                        res.json(result);
+                    });
+    });
     
+    // GET route for returning all nflplayers by team
+    app.get("/api/teamroster/:team", function(req, res) {
+
+        db.nflplayer.findAll( { where: {nflteamTeamId: req.params.team} } )
+                    .then(function(result) {
+                        res.json(result);
+                    });
+    });
+
 }

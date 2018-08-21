@@ -1,5 +1,4 @@
 var path = require("path");
-var teams = require(__dirname + "/../db/nflteams.json");
 
 /////////////////////////////////////////////////////////////////
 // Team Data Object model
@@ -21,23 +20,36 @@ module.exports = function(sequelize, DataTypes) {
       }
     });
   
+    // adding class method to populate the nflteam table with seed data if the table is empty
     nflteam.seedDB = function() {
 
       nflteam.findAll({})
               .then( function(result) {
+
                 if ( !result.length ) {
-                  console.log("nflteams empty - loading data for " + teams.length + " teams");
-                    
+
+                  let teams = require(__dirname + "/../db/nflteams.json");
+                   
                   for(var i=0; i<teams.length; i++) {
                     nflteam.create( { team_id: teams[i].code,
                                       team_name: teams[i].fullName,
                                       bye_week: teams[i].byeweek} )
                             .then( function(result) {
                             });
-                    }
                   }
-                });
+                }
+                
+              });
     };
 
+    // Associating nflteam with nflplayer
+    nflteam.associate = function(models) {
+
+      nflteam.hasMany(models.nflplayer, {
+        onDelete: "cascade"
+      });
+
+    };
+  
     return nflteam;
   };
