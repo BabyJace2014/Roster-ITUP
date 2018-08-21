@@ -30,6 +30,55 @@ var db = require("../models");
 module.exports = function(app) {
 
     // define routes needed
+
+    // INDEX ROUTE
+    app.get("/", (req, res) => {
+        res.render("index", {
+            title: "Roster it up : home",
+            layout: "landing"
+        });
+    });
+
+    // LOGIN ROUTES
+    app.get("/login", (req, res) => {
+        res.render("login", {title: "Roster it up : login"});
+    });
+    app.post("login/:id", (req, res) => {
+        //get input from user
+
+        //compare input to user info
+
+        //if input is correct res.redirect to user homepage
+    });
+
+    // SIGN UP ROUTES 
+    app.get("/signup", (req, res) => {
+        res.render("signup", {title: "Roster it up : sign up"});
+    });
+    app.post("/signup/:id", (req, res) => {
+        //get user input
+
+        //create new user
+
+        // save to database
+
+        // res.redirect to team.handlebars
+    });
+
+    // TEAM ROUTE
+    app.get("/:id/team", (req, res) => {
+        res.render("team", {title: "Roster it up : create team"});
+    });
+    // POST TEAM ROUTE
+
+    // ROSTER ROUTES
+    app.get("/:id/roster", (req, res) => {
+        res.render("roster", {title: "Roster it up : roster"})
+    });
+    app.post("/:id/roster/:roster", (req, res) => {
+        // save roster data if roster is persistent
+    });
+
     // get users route
 
     // GET route for returning all users

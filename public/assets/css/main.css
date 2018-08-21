@@ -1,0 +1,41 @@
+
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit; 
+}
+
+html {
+    height: 100%;
+    width: 100%;
+    /* definition of 1 rem for this project*/
+    font-size: 62.5%;
+}
+body {
+    height: 100%;
+    width: 100%;
+}
+h2 {
+    font-size: 9rem;
+    font-family: 'Teko', sans-serif;
+    font-weight: 700;
+    color: #013369;
+}
+h4 {
+    font-size: 3rem;
+    font-family: 'PT Sans Narrow', sans-serif;
+    color: #f0f0f0;
+    margin-bottom: 3rem;
+}
+h5{
+    font-size: 2.3rem;
+    font-family: 'PT Sans Narrow', sans-serif;
+    color: #f0f0f0;
+}
+hr {
+    opacity: .6;
+    margin-bottom: 5rem;
+}
