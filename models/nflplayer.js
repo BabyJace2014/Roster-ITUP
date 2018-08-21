@@ -42,20 +42,6 @@ module.exports = function(sequelize, DataTypes) {
 
                     }
                   }
-
-                if ( !result.length ) {
-                  console.log("nflplayers empty - loading data for " + players.length + " players");
-                    
-                  // for(var i=0; i<players.length; i++) {
-                  //   if ( players[i].active == 1 ) {
-                  //     nflplayer.create( { player_id: players[i].playerId,
-                  //                         player_name: players[i].displayName,
-                  //                         team_id: players[i].team} )
-                  //           .then( function(result) {
-                  //                   console.log("Added: " + players[i].displayName);
-                  //           });
-                  //   }
-                  // }
                 }
               });
     };
