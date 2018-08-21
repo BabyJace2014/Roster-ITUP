@@ -72,8 +72,22 @@ module.exports = function(app) {
                 });
     });
 
-    // get nfl players by team
+   // GET route for returning all nflplayers
+   app.get("/api/nflplayers", function(req, res) {
 
-    // get nfl players by position
-    
+        db.nflplayer.findAll({})
+                .then(function(result) {
+                    res.json(result);
+                });
+    });
+
+// GET route for returning all nflplayers by team
+app.get("/api/teamroster/:team", function(req, res) {
+
+    db.nflplayer.findAll( { where: {nflteamTeamId: req.params.team} } )
+                .then(function(result) {
+                    res.json(result);
+                });
+    });
+
 }
