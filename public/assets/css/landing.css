@@ -1,0 +1,37 @@
+body {
+    background-image: url("../img/hero-img2.png");
+    height: 105%;
+    width: 100%;
+    background-position: top;
+    position: relative;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+.cvr-logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.cover-btn {
+    font-family: 'Teko', sans-serif;
+    font-weight: 700;
+    font-size: 3.7rem;
+    text-align: center;
+    width: 75%;
+    display: block;
+    margin: 0 auto;
+    padding: .5rem 7rem;
+    color: #013369;
+    border: .2rem solid rgb(1, 51, 105);
+    background-color: rgba(190,190,215,.5);
+    border-radius: 3rem;
+    transition: 1s;
+}
+.cover-btn:hover, .cover-btn:active {
+    color: rgba(200,200,255,.5);
+    background-color: #013369;
+}
+.bottom {
+    padding-top: 23rem;
+}

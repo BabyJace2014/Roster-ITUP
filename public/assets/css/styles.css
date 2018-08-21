@@ -1,0 +1,60 @@
+
+
+body {
+    background-image: url("../img/background-footballTexture.png");
+    height: 105%;
+    width: 100%;
+    background-position: top;
+    position: relative;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.slab {
+    /* height: 85vh; */
+    margin-top: 5rem;
+    text-align: center;
+    border: .1rem solid rgba(190,190,215,.6);
+    border-radius: 3rem;
+    background-color: rgba(190,190,215,.6);
+    padding: 4rem 0;
+}
+.in-info {
+    height: 5rem;
+    width: 70%;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 3.7rem;
+    margin-bottom: 3rem;
+    opacity: .7;
+}
+.stn-submit {
+    font-size: 2.7rem;
+    font-family: 'PT Sans Narrow', sans-serif;
+    color: #013369;
+    border: .2rem  solid #013369;
+    background-color: #f0f0f0;
+    border-radius: 1rem;
+    padding: 1rem 4rem;
+    margin: 5rem 5rem;
+    transition: 1s;
+}
+.stn-submit:hover, .stn-submit:active {
+    color: #f0f0f0;
+    background-color: #013369;
+}
+.profile {
+    height: 14rem;
+    width: 90%;
+    border: .2rem solid #222266;
+    background-color:#013369;
+    margin: 0 auto 1rem auto;
+}
+.prof-logo {
+    height: 14rem;
+    background-image: url("../img/generic.png");
+    background-repeat: no-repeat;
+}
+.player-info {
+    text-align: left;
+}
