@@ -147,5 +147,4 @@ app.get("/api/teamroster/:team", function(req, res) {
                     res.json(result);
                 });
     });
-
 }
