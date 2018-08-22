@@ -60,13 +60,22 @@ module.exports = function(app) {
     });
 
     // TEAM ROUTE
-    app.get("/:id/team", (req, res) => {
-        res.render("team", {title: "Roster it up : create team"});
+    app.get("/team", (req, res) => {
+        
+        db.nflteam.findAll({
+            attributes: ["team_id"]
+        }).then((data) => {
+            console.log(`XXXXX${data}`)
+            res.render("team", {
+                title: "Roster it up : create team",
+                team: data
+            });
+        })
     });
     // POST TEAM ROUTE
 
     // ROSTER ROUTES
-    app.get("/:id/roster", (req, res) => {
+    app.get("/roster", (req, res) => {
         res.render("roster", {title: "Roster it up : roster"})
     });
     app.post("/:id/roster/:roster", (req, res) => {

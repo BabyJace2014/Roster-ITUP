@@ -2,7 +2,7 @@
 
 body {
     background-image: url("../img/background-footballTexture.png");
-    height: 105%;
+    height: 115%;
     width: 100%;
     background-position: top;
     position: relative;
@@ -41,7 +41,27 @@ body {
 }
 .stn-submit:hover, .stn-submit:active {
     color: #f0f0f0;
-    background-color: #013369;
+    background-color: rgb(1, 51, 105);
+}
+.team-btn {
+    height: 11rem;
+    width: 8rem;
+    display: inline-block;
+    margin: 2rem;
+    border: .2rem solid rgb(240, 240, 240);
+    border-radius: 1rem;
+    background-color: rgba(1, 51, 105,.3);
+    transition: .7s;
+}
+.team-btn:hover {
+    cursor: pointer;
+    transform: scale(1.3);
+    box-shadow: 1rem .3rem .4rem rgba(50,50,50, .4);
+}
+.team-btn.active {
+    transform: scale(1.3);
+    box-shadow: 1rem .3rem .4rem rgba(50,50,50, .4);
+    background-color: rgba(240, 240, 240, .3);
 }
 .profile {
     height: 14rem;

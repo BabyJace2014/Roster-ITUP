@@ -4,21 +4,19 @@
             <div class="column is-2"></div>
             <div class="column is-8 slab">
                 <h2>Sign up form</h2>
-                <form>
+                <form action="/api/user" method="POST">
                     <div class="field">
-                        <input type="text" class="input is-success in-info" placeholder="user name">
+                        <input type="text" class="input is-success in-info" placeholder="user name" name="user_name">
                     </div>
                     <div class="field">
-                            <input type="password" class="input is-success in-info" placeholder="password">
+                        <input type="password" class="input is-success in-info" placeholder="password" name="p">
                     </div>    
                     <div class="field">
                         <input type="password" class="input is-success in-info" placeholder="re-enter password">
                     </div>
                     <input type="text" class="input is-success in-info" placeholder="team name">
                 </form>
-                <a href="create.html" class="stn-submit"> 
-                    Submit
-                </a>
+                <button type="submit" class="stn-submit">Submit</button>
             </div>
             <div class="column is-2"></div>
         </div>

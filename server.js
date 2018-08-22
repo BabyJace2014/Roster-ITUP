@@ -23,6 +23,7 @@ app.use(bodyParser.json());
 
 // serving public directory
 app.use(express.static(__dirname + '/public'));
+
 // Routes
 require("./controllers/rosteritup_controller.js")(app);
 
@@ -34,7 +35,7 @@ app.set("view engine", "handlebars");
 // Initliazes the db connection & sets the Express App listening
 /////////////////////////////////////////////////////////////////
 
-db.sequelize.sync({ force: true }).then( function () {
+db.sequelize.sync({}).then( function () {
     db.user.seedDB();
     db.nflteam.seedDB();
     db.nflplayer.seedDB();

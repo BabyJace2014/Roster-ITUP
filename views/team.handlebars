@@ -6,9 +6,18 @@
                 <h2>Choose your players</h2>
                 <h4>Pick NFL teams to find players to add to your team</h4>
                 <hr>
-                <h4><em>Buttons with team names and logos go here. Pressing the button will
-                    toggle the team and populate the players below.
-                </em></h4>
+                <div class="columns">
+                    <div class="column is-1"></div>
+                    <div class="column is-10">
+                    {{#each team}}
+                        <span class="team-btn">
+                            <img src="/assets/img/team-logos/{{team_id}}.svg" class="team-logo" />
+                            <h6 id="team-name">{{team_id}}</h6>
+                        </span>
+                    {{/each}}
+                    </div>
+                    <div class="column is-1"></div>
+                </div>
             </div>
             <div class="column is-1"></div>
         </div>
@@ -52,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="home.html" class="stn-submit">
+                <a href="roster" class="stn-submit">
                         Create team
                 </a>
             </div>
