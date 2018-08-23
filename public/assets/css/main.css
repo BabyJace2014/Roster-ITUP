@@ -1,22 +1,16 @@
 
 
 *,
-*::after,
 *::before {
     margin: 0;
     padding: 0;
     box-sizing: inherit; 
 }
 
-html {
-    
-    /* definition of 1 rem for this project*/
-    font-size: 62.5%;
-}
-
-body {
+html, body {
     height: 100%;
     width: 100%;
+    font-size: 62.5%;
 }
 
 h2 {
