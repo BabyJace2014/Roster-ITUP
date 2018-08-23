@@ -14,10 +14,16 @@ var db = require("../models");
 //  GET route to retrieve specific user, by user_name
 //
 //  /api/user
-//  POST route to save a new user; expects object with parameters: name, password, _teamname (optional)_
+//  POST route to save a new user; expects object with parameters: name, password, <teamname>
 //
 //  /api/nflteams
 //  GET route to retrieve all teams in the database
+//
+//  /api/nflplayers
+//  GET route for returning all nflplayers
+//
+//  /api/teamroster/:team
+//  GET route for returning all nflplayers by team
 //
 /////////////////////////////////////////////////////////////////
 
@@ -33,39 +39,43 @@ module.exports = function(app) {
         });
     });
 
-    // LOGIN ROUTES
+    // LOGIN ROUTE
     app.get("/login", (req, res) => {
         res.render("login", {title: "Roster it up : login"});
-    });
-    app.post("login/:id", (req, res) => {
-        //get input from user
-
-        //compare input to user info
-
-        //if input is correct res.redirect to user homepage
     });
 
     // SIGN UP ROUTES 
     app.get("/signup", (req, res) => {
         res.render("signup", {title: "Roster it up : sign up"});
     });
-    app.post("/signup/:id", (req, res) => {
-        //get user input
+    
+    app.post("/signup", (req, res) => {
 
-        //create new user
+        // see if this user already exists
+        db.user.findOne({where: {user_name: req.body.name}})
+                .then( function(result) {
 
-        // save to database
-
-        // res.redirect to team.handlebars
+                    // if user doesn't already exist, add it to the db
+                    if ( !result ) {
+                        db.user.create( {   user_name: req.body.name,
+                                            user_pwd: req.body.password,
+                                            userteam_name: req.body.teamname} )
+                                .then( function(result) {
+                                    res.json(result);
+                            });
+                    } else {
+                        // if user does exist ... send back error
+                        res.json({error: "User already exists."});
+                    }
+                });
     });
 
     // TEAM ROUTE
     app.get("/team", (req, res) => {
-        
+       
         db.nflteam.findAll({
             attributes: ["team_id"]
         }).then((data) => {
-            console.log(`XXXXX${data}`)
             res.render("team", {
                 title: "Roster it up : create team",
                 team: data
@@ -82,7 +92,6 @@ module.exports = function(app) {
         // save roster data if roster is persistent
     });
 
-    // get users route
 
     // GET route for returning all users
     app.get("/api/users", function(req, res) {
@@ -106,19 +115,6 @@ module.exports = function(app) {
                 });
     });
 
-    // 'POST' route for adding a user
-    app.post("/api/user", function(req, res) {
-
-        // add new user defined in request to the users table
-
-        db.user.create( { user_name: req.body.name,
-                          user_pwd: req.body.password,
-                          userteam_name: req.body.teamname} )
-                .then( function(result) {
-                    res.json(result);
-                });
-    });
-
     // GET route for returning all nflteams
     app.get("/api/nflteams", function(req, res) {
 
@@ -130,21 +126,22 @@ module.exports = function(app) {
                 });
     });
 
-   // GET route for returning all nflplayers
-   app.get("/api/nflplayers", function(req, res) {
+    // GET route for returning all nflplayers
+    app.get("/api/nflplayers", function(req, res) {
 
         db.nflplayer.findAll({})
-                .then(function(result) {
-                    res.json(result);
-                });
+                    .then(function(result) {
+                        res.json(result);
+                    });
+    });
+    
+    // GET route for returning all nflplayers by team
+    app.get("/api/teamroster/:team", function(req, res) {
+
+        db.nflplayer.findAll( { where: {nflteamTeamId: req.params.team} } )
+                    .then(function(result) {
+                        res.json(result);
+                    });
     });
 
-// GET route for returning all nflplayers by team
-app.get("/api/teamroster/:team", function(req, res) {
-
-    db.nflplayer.findAll( { where: {nflteamTeamId: req.params.team} } )
-                .then(function(result) {
-                    res.json(result);
-                });
-    });
 }

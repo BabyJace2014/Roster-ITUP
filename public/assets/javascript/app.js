@@ -1,9 +1,9 @@
-
-
+$(function() {
 
 // variable for NFL team ID reference
 let teamId;
-
+let userName = sessionStorage.getItem("userName");
+    
 $(".team-btn").click(function() {
     if($(this).hasClass("active")){
         $(this).removeClass("active")
@@ -93,21 +93,4 @@ const getPlayersByTeam = (teamId) => {
     })
  }
 
-//  <div class="card profile">
-//                     <div class="card-content">
-//                         <div class="columns">
-//                             <div class="column is-3">
-//                                 <div class="prof-logo"></div>
-//                             </div>
-//                             <div class="column is-5">
-//                                 <h5 class="player-info">Player's Name</h5>
-//                             </div>
-//                             <div class="column is-4">
-//                                     <h5 class="player-info">Player's Position</h5>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-
-
+});
