@@ -72,12 +72,20 @@ module.exports = function(app) {
 
     // TEAM ROUTE
     app.get("/team", (req, res) => {
-        res.render("team", {title: "Roster it up : create team"});
+       
+        db.nflteam.findAll({
+            attributes: ["team_id"]
+        }).then((data) => {
+            res.render("team", {
+                title: "Roster it up : create team",
+                team: data
+            });
+        })
     });
     // POST TEAM ROUTE
 
     // ROSTER ROUTES
-    app.get("/:id/roster", (req, res) => {
+    app.get("/roster", (req, res) => {
         res.render("roster", {title: "Roster it up : roster"})
     });
     app.post("/:id/roster/:roster", (req, res) => {

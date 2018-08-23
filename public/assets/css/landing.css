@@ -1,6 +1,6 @@
 body {
-    background-image: url("../img/hero-img2.png");
-    height: 105%;
+    /* background-image: url(); */
+    height: 100%;
     width: 100%;
     background-position: top;
     position: relative;
@@ -12,6 +12,9 @@ body {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    z-index: 1;
+    padding-top: 2vh;
+    position: relative;
 }
 .cover-btn {
     font-family: 'Teko', sans-serif;
@@ -24,9 +27,11 @@ body {
     padding: .5rem 7rem;
     color: #013369;
     border: .2rem solid rgb(1, 51, 105);
-    background-color: rgba(190,190,215,.5);
+    background-color: rgba(190,190,215,.7);
     border-radius: 3rem;
     transition: 1s;
+    position: relative;
+    z-index: 1;
 }
 .cover-btn:hover, .cover-btn:active {
     color: rgba(200,200,255,.5);
@@ -34,4 +39,63 @@ body {
 }
 .bottom {
     padding-top: 23rem;
+}
+
+.slideshow { 
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+  
+.slideshow li { 
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    opacity: 0;
+    z-index: 0;
+    animation: imageAnimation 24s linear infinite; 
+}
+
+.slideshow li:nth-child(1) { 
+    background-image: url("../img/hero-img2.png") 
+}
+.slideshow li:nth-child(2) { 
+    background-image: url("../img/hero-img3.png");
+    animation-delay: 6s; 
+}
+.slideshow li:nth-child(3) { 
+    background-image: url("../img/hero-img5.png");
+    animation-delay: 12s; 
+}
+.slideshow li:nth-child(4) { 
+    background-image: url("../img/hero-img4.png");
+    animation-delay: 18s; 
+}
+
+@keyframes imageAnimation { 
+    0% { 
+        opacity: 0; 
+        animation-timing-function: ease-in;
+    }
+    10% {
+        opacity: 1;
+        animation-timing-function: ease-out;
+    }
+    20% {
+        opacity: 1
+    }
+    30% {
+        opacity: 0
+    }
 }
