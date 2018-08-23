@@ -39,34 +39,39 @@ module.exports = function(app) {
         });
     });
 
-    // LOGIN ROUTES
+    // LOGIN ROUTE
     app.get("/login", (req, res) => {
         res.render("login", {title: "Roster it up : login"});
-    });
-    app.post("login/:id", (req, res) => {
-        //get input from user
-
-        //compare input to user info
-
-        //if input is correct res.redirect to user homepage
     });
 
     // SIGN UP ROUTES 
     app.get("/signup", (req, res) => {
         res.render("signup", {title: "Roster it up : sign up"});
     });
-    app.post("/signup/:id", (req, res) => {
-        //get user input
+    
+    app.post("/signup", (req, res) => {
 
-        //create new user
+        // see if this user already exists
+        db.user.findOne({where: {user_name: req.body.name}})
+                .then( function(result) {
 
-        // save to database
-
-        // res.redirect to team.handlebars
+                    // if user doesn't already exist, add it to the db
+                    if ( !result ) {
+                        db.user.create( {   user_name: req.body.name,
+                                            user_pwd: req.body.password,
+                                            userteam_name: req.body.teamname} )
+                                .then( function(result) {
+                                    res.json(result);
+                            });
+                    } else {
+                        // if user does exist ... send back error
+                        res.json({error: "User already exists."});
+                    }
+                });
     });
 
     // TEAM ROUTE
-    app.get("/:id/team", (req, res) => {
+    app.get("/team", (req, res) => {
         res.render("team", {title: "Roster it up : create team"});
     });
     // POST TEAM ROUTE
@@ -79,7 +84,6 @@ module.exports = function(app) {
         // save roster data if roster is persistent
     });
 
-    // get users route
 
     // GET route for returning all users
     app.get("/api/users", function(req, res) {
@@ -98,19 +102,6 @@ module.exports = function(app) {
         // return the 1 row from the users table where user_name matches value passed in
 
         db.user.findOne({where: {user_name: req.params.name}})
-                .then( function(result) {
-                    res.json(result);
-                });
-    });
-
-    // 'POST' route for adding a user
-    app.post("/api/user", function(req, res) {
-
-        // add new user defined in request to the users table
-
-        db.user.create( { user_name: req.body.name,
-                          user_pwd: req.body.password,
-                          userteam_name: req.body.teamname} )
                 .then( function(result) {
                     res.json(result);
                 });
