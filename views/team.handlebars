@@ -10,7 +10,7 @@
                     <div class="column is-1"></div>
                     <div class="column is-10">
                     {{#each team}}
-                        <span class="team-btn">
+                        <span class="team-btn" value={{team_id}}>
                             <img src="/assets/img/team-logos/{{team_id}}.svg" class="team-logo" />
                             <h6 id="team-name">{{team_id}}</h6>
                         </span>
@@ -27,40 +27,12 @@
             <div class="column is-1"></div>
             <div class="column is-5 slab">
                 <h4><em>NFL team populates here</em></h4>
-                <div class="card profile">
-                    <div class="card-content">
-                        <div class="columns">
-                            <div class="column is-3">
-                                <div class="prof-logo"></div>
-                            </div>
-                            <div class="column is-5">
-                                <h5 class="player-info">Player's Name</h5>
-                            </div>
-                            <div class="column is-4">
-                                    <h5 class="player-info">Player's Position</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="nfl-populate"></div>
             </div>
             
             <div class="column is-5 slab">
                 <h4><em>Your team populates here</em></h4>
-                <div class="card profile">
-                    <div class="card-content">
-                        <div class="columns">
-                            <div class="column is-3">
-                                <div class="prof-logo"></div>
-                            </div>
-                            <div class="column is-5">
-                                <h5 class="player-info">Player's Name</h5>
-                            </div>
-                            <div class="column is-4">
-                                <h5 class="player-info">Player's Position</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="team-populate"></div>
                 <a href="roster" class="stn-submit">
                         Create team
                 </a>

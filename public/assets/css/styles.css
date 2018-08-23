@@ -102,3 +102,7 @@
     border: .2rem solid rgb(91, 223, 91);
     box-shadow: .2rem .1rem .2rem rgba(198, 255, 198, 0.4);
 }
+.remove-btn:hover {
+    cursor: pointer;
+    transform: scale(1.3);
+}

@@ -28,11 +28,8 @@ module.exports = function(sequelize, DataTypes) {
 
                 if ( !result.length ) {
 
-                let teams = require(__dirname + "/../db/nflteams.json");
+                  let teams = require(__dirname + "/../db/nflteams.json");
                    
-                if ( !result.length ) {
-                  console.log("nflteams empty - loading data for " + teams.length + " teams");
-                    
                   for(var i=0; i<teams.length; i++) {
                     nflteam.create( { team_id: teams[i].code,
                                       team_name: teams[i].fullName,
@@ -41,6 +38,7 @@ module.exports = function(sequelize, DataTypes) {
                             });
                   }
                 }
+                
               });
     };
 
