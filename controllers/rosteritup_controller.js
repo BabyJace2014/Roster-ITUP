@@ -29,8 +29,6 @@ var db = require("../models");
 
 module.exports = function(app) {
 
-    // define routes needed
-
     // INDEX ROUTE
     app.get("/", (req, res) => {
         res.render("index", {
@@ -83,6 +81,16 @@ module.exports = function(app) {
         })
     });
     // POST TEAM ROUTE
+    app.post("/team", (req, res) => {
+
+        const playerData = req.body.data;
+
+        db.userplayer.bulkCreate( playerData )
+                     .then( function(result) {
+                         res.json(result);
+                     });
+
+    });
 
     // ROSTER ROUTES
     app.get("/roster", (req, res) => {
@@ -139,6 +147,17 @@ module.exports = function(app) {
     app.get("/api/teamroster/:team", function(req, res) {
 
         db.nflplayer.findAll( { where: {nflteamTeamId: req.params.team} } )
+                    .then(function(result) {
+                        res.json(result);
+                    });
+    });
+
+    // GET route for returning all user's players for their team
+    app.get("/api/userplayers/:user", function(req, res) {
+
+        db.userplayer.findAll( { where: {user_name: req.params.user},
+                                 include: [{model: db.user},
+                                           {model: db.nflplayer}] } )
                     .then(function(result) {
                         res.json(result);
                     });
