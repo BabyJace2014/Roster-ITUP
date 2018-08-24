@@ -3,7 +3,11 @@ $(function() {
 // variable for NFL team ID reference
 let teamId;
 let userName = sessionStorage.getItem("userName");
-    
+
+if ( !userName || userName === "" ) {
+    window.location.replace("/");
+}
+
 $(".team-btn").click(function() {
     if($(this).hasClass("active")){
         $(this).removeClass("active")
@@ -87,10 +91,83 @@ const getPlayersByTeam = (teamId) => {
             col3.append(position, add, message);
 
             card.append(col1, col2, col3);
+
+            let playerId = element.player_id.toString();
+            card.attr("value", playerId);
+            
+            let pPosition = element.player_position;
+            card.attr("position", pPosition);
+            
             $("#nfl-populate").append(card);
             cardValue++;
         });
     })
  }
+
+ // handle user click on 'Create Team' button:  get data from cards, put into data object
+ // array, validate the array and push to the server to store into the database
+
+ $("#createTeam").on("click", function(event) {
+    event.preventDefault();
+    $("#createTeamErrMsg").text("");
+
+    var playerDataArray = [];
+    var qb = 0;     // must have at least 1
+    var rb = 0;     // must have at least 2
+    var wr = 0;     // must have at least 3
+    var te = 0;     // must have at least 1
+    var def = 0;    // must have at least 1
+
+    $("#team-populate").children().each( function(index, value) {
+
+        var playerId = $(this).attr("value");
+        var playerPosition = $(this).attr("position");
+
+        switch (playerPosition ) {
+            case "QB":  qb++
+                        break;
+
+            case "RB":  rb++;
+                        break;
+            
+            case "WR":  wr++;
+                        break;
+
+            case "TE":  te++
+                        break;
+
+            case "DEF": def++;
+                        break;
+        }
+
+        var playerData = { user_name: userName,
+                           player_id: parseInt(playerId),
+                           userUserName: userName,
+                           nflplayerPlayerId: parseInt(playerId) };
+
+        playerDataArray.push( playerData );
+    });
+    
+    // make sure we have 18 players
+    if ( playerDataArray.length != 18) {
+        $("#createTeamErrMsg").text("You need to select 18 players to create a team");
+        return;
+    }
+
+    // make sure we have all the required positions covered
+    if ( qb < 1 || rb < 2 || wr < 3 || te < 1 || def < 1 ) {
+        $("#createTeamErrMsg").text("You need (1)QB, (2)RB, (3)WR, (1)TE & (1)DEF to create a team");
+        return;
+    }
+
+    $.post("/team", {data: playerDataArray})
+        .then( function(result) {
+            if ( result.error ) {
+                $("#createTeamErrMsg").text(result.error);
+            } else {
+                window.location.replace("roster");
+            }
+        });
+ });
 
 });
