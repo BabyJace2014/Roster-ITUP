@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "maiapereira",
+    "password": "root",
     "database": "rosteritup_db",
     "host": "localhost",
     "dialect": "mysql"

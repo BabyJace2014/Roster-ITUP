@@ -86,6 +86,23 @@ $(document).on("click", ".remove-btn", function() {
     }
 });
 
+$(document).on("click", ".info-btn", function() {
+    if($(this).hasClass("infoPop")){
+        $(this).removeClass("infoPop")
+        document.getElementById("myPopup").classList.toggle("show");
+    } else {
+        $(this).addClass("infoPop");
+
+        // get data 
+        let score = $(this).parent().attr("data"),
+            data = [["-2", "-1", "C", "P"], score];
+        
+
+        $(".popuptext").text("This is a popup!") 
+        document.getElementById("myPopup").classList.toggle("show");
+    }
+})
+
 const clearNFL = () => {
     $("#nfl-populate").text("");
 }
@@ -247,4 +264,37 @@ const getPlayersByTeam = (teamId) => {
     populateUserTeam(userName);
  })
 
+
+
 });
+
+
+/**
+ * let x = d3.scaleLinear().domain([-2, width]).range([0, height]);
+        // orient axis
+        let xAxis = d3.svg.axis().scale(x).orient("bottom"),
+            yAxis = d3.svg.axis().scale(y).orient("left");
+        // define lines
+        let line = d3.svg.line().x((d) => { return x(d.week); })
+                                .y((d) => { return y(d.scores); });
+
+        let svg = d3.select(".linechart").append("svg")
+                    .attr("width", width).attr("height", height)
+                    .append("g");
+        
+        let data = arrData.map((d) => {
+            return{
+                week: arrData[0],
+                scores: arrData[1]
+            }
+        })
+
+        let info = $(`<div class='popup' data='[${backTwo},${backOne},${current},${projected}]'>`),
+            bubble = $("<div class='popuptext linechart' id='myPopup'></h5>")
+            infoBtn = $("<button class='info-btn'>");
+            infoBtn.append($("<i class='fas fa-info'></i>"));
+            info.append(bubble, infoBtn);
+         current = Math.floor(Math.random() * 5) + 1,
+            backOne = Math.floor(Math.random() * 5) + 1,
+            backTwo = Math.floor(Math.random() * 5) + 1;
+ */
