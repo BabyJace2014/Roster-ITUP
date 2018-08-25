@@ -97,28 +97,6 @@ $(document).on("click", ".info-btn", function() {
         let score = $(this).parent().attr("data"),
             data = [["-2", "-1", "C", "P"], score];
         
-        let svg = d3.select(".linechart").append("svg").attr("width", "400").attr("height", "400");
-
-
-        let y = d3.scaleLinear()
-            .domain([0, 4])
-            .range([0, 5]);
-
-        let rects = svg.selectAll("rect")
-                .data(data)
-            .enter()
-                .append("rect")
-                .attr("y", 0)
-                .attr("x", (d, i) =>{
-                    return (i * 60);
-                })
-                .attr("width", 40)
-                .attr("height", (d) => {
-                    return y(d.height);
-                })
-                .attr("fill", function(d) {
-                    return "rgb(91, 203, 223)";
-                });
 
         $(".popuptext").text("This is a popup!") 
         document.getElementById("myPopup").classList.toggle("show");
@@ -150,17 +128,9 @@ const getPlayersByTeam = (teamId) => {
 
             let col2 = $("<div class='column is-5 scale-center'>"),
             name = $(`<h5 class='player-info name'>${element.player_name}</h5>`);
-            projected = Math.floor(Math.random() * 5) + 1,
-            current = Math.floor(Math.random() * 5) + 1,
-            backOne = Math.floor(Math.random() * 5) + 1,
-            backTwo = Math.floor(Math.random() * 5) + 1;
-
+            projected = Math.floor(Math.random() * 5) + 1;
             let proTag = $(`<h5 class="player-info">Projected points: ${projected}</h5>`);
-            let info = $(`<div class='popup' data='[${backTwo},${backOne},${current},${projected}]'>`),
-            bubble = $("<div class='popuptext linechart' id='myPopup'></h5>")
-            infoBtn = $("<button class='info-btn'>");
-            infoBtn.append($("<i class='fas fa-info'></i>"));
-            info.append(bubble, infoBtn);
+            
             col2.append(name, proTag, info);
 
             let col3 = $("<div class='column is-4 scale-right'>"),
@@ -200,12 +170,7 @@ const getPlayersByTeam = (teamId) => {
             let col2 = $("<div class='column is-5 scale-center'>"),
             name = $(`<h5 class='player-info name'>${element.nflplayer.player_name}</h5>`),
             projected = Math.floor(Math.random() * 5) + 1,
-            current = Math.floor(Math.random() * 5) + 1,
-            backOne = Math.floor(Math.random() * 5) + 1,
-            backTwo = Math.floor(Math.random() * 5) + 1,
-            proTag = $(`<h5 class="player-info">Projected points: ${projected}</h5>`),
-            info = $("<button class='info-btn'>");
-            info.append($("<i class='fas fa-info'></i>"));
+            proTag = $(`<h5 class="player-info">Projected points: ${projected}</h5>`);
             col2.append(name, proTag, info);
 
             let col3 = $("<div class='column is-4 scale-right'>"),
@@ -316,4 +281,13 @@ const getPlayersByTeam = (teamId) => {
                 scores: arrData[1]
             }
         })
+
+        let info = $(`<div class='popup' data='[${backTwo},${backOne},${current},${projected}]'>`),
+            bubble = $("<div class='popuptext linechart' id='myPopup'></h5>")
+            infoBtn = $("<button class='info-btn'>");
+            infoBtn.append($("<i class='fas fa-info'></i>"));
+            info.append(bubble, infoBtn);
+         current = Math.floor(Math.random() * 5) + 1,
+            backOne = Math.floor(Math.random() * 5) + 1,
+            backTwo = Math.floor(Math.random() * 5) + 1;
  */
