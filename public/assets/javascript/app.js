@@ -163,6 +163,11 @@ const getPlayersByTeam = (teamId) => {
             let col3 = $("<div class='column is-4 scale-right'>"),
             position = $(`<h5 class='player-info'>${element.nflplayer.player_position}</h5>`),
             add = $("<button class='add-btn'>");
+
+            if ( element.on_roster === true ) {
+                add.addClass("added");
+            }
+
             message = $("<h6 class='message'></h6>")
             add.append($("<i class='fas fa-plus'></i>")); 
             col3.append(position, add, message);
@@ -176,6 +181,10 @@ const getPlayersByTeam = (teamId) => {
             card.attr("position", pPosition);
             
             $("#nfl-populate").append(card);
+
+            if ( element.on_roster === true ) {
+                addPlayer(card);
+            }
         });
     })
  }
@@ -226,7 +235,7 @@ const getPlayersByTeam = (teamId) => {
     
     // make sure we have 18 players & all the required positions are covered
     if ( (playerDataArray.length != 18) || ( qb < 1 || rb < 2 || wr < 3 || te < 1 || def < 1 ) ){
-        $("#createTeamErrMsg").text("You need 9 players and at least (1)QB, (2)RB, (3)WR, (1)TE & (1)DEF to form a roster");
+        $("#createTeamErrMsg").text("You need 18 players and at least (1)QB, (2)RB, (3)WR, (1)TE & (1)DEF to form a roster");
         return;
     }
 
