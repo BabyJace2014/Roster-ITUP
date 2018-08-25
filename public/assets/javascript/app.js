@@ -27,29 +27,25 @@ $(".team-btn").click(function() {
 });
 
 $(document).on("click", ".add-btn", function() {
-    if($(this).hasClass("added")){
-        $(this).find(".message").text("Already added!").css("color","rgb(223, 91, 91)");
-    } else {
-        $(this).addClass("added").find(".message").text("Added");
-        addPlayer($(this).parent().parent());
+    
+    addPlayer($(this).parent().parent());
 
-        if ( isRosterPage ) { //this is the roster page
+    if ( isRosterPage ) { //this is the roster page
 
-            var playerId = $(this).parent().parent().attr("value");
+        var playerId = $(this).parent().parent().attr("value");
 
-            var onRoster = { on_roster: true,
-                             id: parseInt(playerId),
-                             name: userName};
+        var onRoster = { on_roster: true,
+                         id: parseInt(playerId),
+                         name: userName};
             
-            $.ajax( {   url: "/userplayer",
-                        method: "PUT",
-                        data: onRoster } )
-                .then( function(result) {
-                    if (result.error) {
-                        $("#saveRosterErrMsg").text(result.error);
-                    }
-            });
-        }
+        $.ajax( {   url: "/userplayer",
+                    method: "PUT",
+                    data: onRoster } )
+            .then( function(result) {
+                if (result.error) {
+                    $("#saveRosterErrMsg").text(result.error);
+                }
+        });
     }
 });
 
@@ -68,11 +64,6 @@ const addPlayer = (card) => {
         .addClass("remove-btn").removeClass("add-btn").removeClass("added");
 }
 $(document).on("click", ".remove-btn", function() {
-
-    let name = $(this).parent().parent().find(".name").text();
-    let nflCard = $("#nfl-populate").find(name); 
-    console.log(nflCard);
-    //nflCard.find(".add.btn").removeClass("active").find(".message").text("");
 
     $(this).parent().parent().remove();
 
@@ -120,7 +111,10 @@ const getPlayersByTeam = (teamId) => {
 
             let col2 = $("<div class='column is-5 scale-center'>"),
             name = $(`<h5 class='player-info name'>${element.player_name}</h5>`);
-            col2.append(name);
+            projected = Math.floor(Math.random() * 5) + 1;
+            let proTag = $(`<h5 class="player-info">Projected points: ${projected}</h5>`);
+            
+            col2.append(name, proTag);
 
             let col3 = $("<div class='column is-4 scale-right'>"),
             position = $(`<h5 class='player-info'>${element.player_position}</h5>`),
@@ -158,16 +152,13 @@ const getPlayersByTeam = (teamId) => {
 
             let col2 = $("<div class='column is-5 scale-center'>"),
             name = $(`<h5 class='player-info name'>${element.nflplayer.player_name}</h5>`);
-            col2.append(name);
+            projected = Math.floor(Math.random() * 5) + 1,
+            proTag = $(`<h5 class="player-info">Projected points: ${projected}</h5>`);
+            col2.append(name, proTag);
 
             let col3 = $("<div class='column is-4 scale-right'>"),
             position = $(`<h5 class='player-info'>${element.nflplayer.player_position}</h5>`),
             add = $("<button class='add-btn'>");
-
-            if ( element.on_roster === true ) {
-                add.addClass("added");
-            }
-
             message = $("<h6 class='message'></h6>")
             add.append($("<i class='fas fa-plus'></i>")); 
             col3.append(position, add, message);
@@ -186,6 +177,9 @@ const getPlayersByTeam = (teamId) => {
                 addPlayer(card);
             }
         });
+
+        $("#user-team").text(`${response[0].user.userteam_name}'s players`);
+        $("#current-roster").text(`${response[0].user.userteam_name}'s current roster`);
     })
  }
 
