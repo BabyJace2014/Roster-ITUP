@@ -80,15 +80,29 @@ module.exports = function(app) {
             });
         })
     });
-    // POST TEAM ROUTE
-    app.post("/team", (req, res) => {
+
+
+    // POST USERTEAM ROUTE
+    app.post("/userteam", (req, res) => {
 
         const playerData = req.body.data;
 
         db.userplayer.bulkCreate( playerData )
                      .then( function(result) {
                          res.json(result);
-                     });
+        });
+
+    });
+
+    // PUT USERPLAYER ROUTE
+    app.put("/userplayer", (req, res) => {
+
+        db.userplayer.update({on_roster: req.body.on_roster},
+                             {where: {player_id: req.body.id,
+                                      user_name: req.body.name}} )
+                     .then( function(result) {
+                        res.json(result);
+        });
 
     });
 
