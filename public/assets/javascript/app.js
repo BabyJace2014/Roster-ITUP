@@ -140,6 +140,7 @@ const getPlayersByTeam = (teamId) => {
         });
     })
  }
+
  // handle user click on 'Create Team' button:  get data from cards, put into data object
  // array, validate the array and push to the server to store into the database
 
@@ -206,7 +207,9 @@ const getPlayersByTeam = (teamId) => {
         });
  });
 
+
  $("roster").ready(function () {
     populateUserTeam(userName);
  })
+
 });

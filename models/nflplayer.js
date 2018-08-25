@@ -48,12 +48,18 @@ module.exports = function(sequelize, DataTypes) {
 
     // Associating nflplayer with nflteam
     nflplayer.associate = function(models) {
+      
       // an nflplayer can't be created without an nflteam due to the foreign key constraint
       nflplayer.belongsTo( models.nflteam, {
         foreignKey: {
           allowNull: false
         }
       });
+
+      nflplayer.hasMany(models.userplayer, {
+        onDelete: "cascade"
+      });
+
     };
   
     return nflplayer;
