@@ -27,29 +27,25 @@ $(".team-btn").click(function() {
 });
 
 $(document).on("click", ".add-btn", function() {
-    if($(this).hasClass("added")){
-        $(this).find(".message").text("Already added!").css("color","rgb(223, 91, 91)");
-    } else {
-        $(this).addClass("added").find(".message").text("Added");
-        addPlayer($(this).parent().parent());
+    
+    addPlayer($(this).parent().parent());
 
-        if ( isRosterPage ) { //this is the roster page
+    if ( isRosterPage ) { //this is the roster page
 
-            var playerId = $(this).parent().parent().attr("value");
+        var playerId = $(this).parent().parent().attr("value");
 
-            var onRoster = { on_roster: true,
-                             id: parseInt(playerId),
-                             name: userName};
-            
-            $.ajax( {   url: "/userplayer",
-                        method: "PUT",
-                        data: onRoster } )
-                .then( function(result) {
-                    if (result.error) {
-                        $("#saveRosterErrMsg").text(result.error);
-                    }
-            });
-        }
+        var onRoster = { on_roster: true,
+                            id: parseInt(playerId),
+                            name: userName};
+        
+        $.ajax( {   url: "/userplayer",
+                    method: "PUT",
+                    data: onRoster } )
+            .then( function(result) {
+                if (result.error) {
+                    $("#saveRosterErrMsg").text(result.error);
+                }
+        });
     }
 });
 
@@ -68,11 +64,6 @@ const addPlayer = (card) => {
         .addClass("remove-btn").removeClass("add-btn").removeClass("added");
 }
 $(document).on("click", ".remove-btn", function() {
-
-    let name = $(this).parent().parent().find(".name").text();
-    let nflCard = $("#nfl-populate").find(name); 
-    console.log(nflCard);
-    //nflCard.find(".add.btn").removeClass("active").find(".message").text("");
 
     $(this).parent().parent().remove();
 
@@ -94,6 +85,23 @@ $(document).on("click", ".remove-btn", function() {
         });
     }
 });
+
+$(document).on("click", ".info-btn", function() {
+    if($(this).hasClass("infoPop")){
+        $(this).removeClass("infoPop")
+        document.getElementById("myPopup").classList.toggle("show");
+    } else {
+        $(this).addClass("infoPop");
+
+        // get data 
+        let score = $(this).parent().attr("data"),
+            data = [["-2", "-1", "C", "P"], score];
+        
+
+        $(".popuptext").text("This is a popup!") 
+        document.getElementById("myPopup").classList.toggle("show");
+    }
+})
 
 const clearNFL = () => {
     $("#nfl-populate").text("");
@@ -120,7 +128,10 @@ const getPlayersByTeam = (teamId) => {
 
             let col2 = $("<div class='column is-5 scale-center'>"),
             name = $(`<h5 class='player-info name'>${element.player_name}</h5>`);
-            col2.append(name);
+            projected = Math.floor(Math.random() * 5) + 1;
+            let proTag = $(`<h5 class="player-info">Projected points: ${projected}</h5>`);
+            
+            col2.append(name, proTag, info);
 
             let col3 = $("<div class='column is-4 scale-right'>"),
             position = $(`<h5 class='player-info'>${element.player_position}</h5>`),
@@ -157,8 +168,10 @@ const getPlayersByTeam = (teamId) => {
             col1.append(logo);
 
             let col2 = $("<div class='column is-5 scale-center'>"),
-            name = $(`<h5 class='player-info name'>${element.nflplayer.player_name}</h5>`);
-            col2.append(name);
+            name = $(`<h5 class='player-info name'>${element.nflplayer.player_name}</h5>`),
+            projected = Math.floor(Math.random() * 5) + 1,
+            proTag = $(`<h5 class="player-info">Projected points: ${projected}</h5>`);
+            col2.append(name, proTag, info);
 
             let col3 = $("<div class='column is-4 scale-right'>"),
             position = $(`<h5 class='player-info'>${element.nflplayer.player_position}</h5>`),
@@ -253,4 +266,37 @@ const getPlayersByTeam = (teamId) => {
     populateUserTeam(userName);
  })
 
+
+
 });
+
+
+/**
+ * let x = d3.scaleLinear().domain([-2, width]).range([0, height]);
+        // orient axis
+        let xAxis = d3.svg.axis().scale(x).orient("bottom"),
+            yAxis = d3.svg.axis().scale(y).orient("left");
+        // define lines
+        let line = d3.svg.line().x((d) => { return x(d.week); })
+                                .y((d) => { return y(d.scores); });
+
+        let svg = d3.select(".linechart").append("svg")
+                    .attr("width", width).attr("height", height)
+                    .append("g");
+        
+        let data = arrData.map((d) => {
+            return{
+                week: arrData[0],
+                scores: arrData[1]
+            }
+        })
+
+        let info = $(`<div class='popup' data='[${backTwo},${backOne},${current},${projected}]'>`),
+            bubble = $("<div class='popuptext linechart' id='myPopup'></h5>")
+            infoBtn = $("<button class='info-btn'>");
+            infoBtn.append($("<i class='fas fa-info'></i>"));
+            info.append(bubble, infoBtn);
+         current = Math.floor(Math.random() * 5) + 1,
+            backOne = Math.floor(Math.random() * 5) + 1,
+            backTwo = Math.floor(Math.random() * 5) + 1;
+ */
