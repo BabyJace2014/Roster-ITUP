@@ -79,7 +79,6 @@ $(document).on("click", ".remove-btn", function() {
 });
 
 const removePlayer = (card) => {
-    // card.clone().appendTo("#team-populate")
     card.appendTo("#nfl-populate")
         .find( ".remove-btn" ).html("<i class='fas fa-plus'></i>")
         .addClass("add-btn").removeClass("remove-btn");
@@ -122,7 +121,7 @@ const getPlayersByTeam = (teamId) => {
             let card = $("<div class='card columns profile'>");
             // div columns
             let col1 = $("<div class='column is-3 scale-left'>"),
-            logo = $(`<img src='/assets/img/team-logos/${teamId}.svg' class='prof-logo'>`);
+            logo = $("<img src='" + element.player_imgURL + "' class='prof-logo'>");
             col1.append(logo);
 
             let col2 = $("<div class='column is-5 scale-center'>"),
@@ -163,7 +162,7 @@ const getPlayersByTeam = (teamId) => {
             let card = $("<div class='card columns profile'>");
             // div columns
             let col1 = $("<div class='column is-3 scale-left'>"),
-            logo = $(`<img src='/assets/img/team-logos/${element.nflplayer.nflteamTeamId}.svg' class='prof-logo'>`);
+            logo = $("<img src='" + element.nflplayer.player_imgURL + "' class='prof-logo'>");
             col1.append(logo);
 
             let col2 = $("<div class='column is-5 scale-center'>"),
