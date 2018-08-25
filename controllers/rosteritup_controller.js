@@ -94,11 +94,20 @@ module.exports = function(app) {
 
     // ROSTER ROUTES
     app.get("/roster", (req, res) => {
-        res.render("roster", {title: "Roster it up : roster"})
+        //res.render("roster", { title: "Roster it up : Roster page" });
+        db.user.findOne({ where: {
+                userteam_name: req.params.userteam,
+                user_name: req.params.username
+            } 
+        }).then((data) => {
+                res.render("roster", {
+                    title: "Roster it up : Roster page",
+                    teamName: data,
+                    userName: data
+                });
+            })
     });
-    app.post("/:id/roster/:roster", (req, res) => {
-        // save roster data if roster is persistent
-    });
+ 
 
 
     // GET route for returning all users

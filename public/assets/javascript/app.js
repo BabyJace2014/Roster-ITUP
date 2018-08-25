@@ -104,6 +104,43 @@ const getPlayersByTeam = (teamId) => {
     })
  }
 
+ const populateUserTeam = (userName) => {
+    $.ajax({
+        url: `/api/userplayers/${userName}`,
+        method: "GET"
+    }).then((response) => {
+        response.forEach(element => {
+            // create div card
+            let card = $("<div class='card columns profile'>");
+            // div columns
+            let col1 = $("<div class='column is-3'>"),
+            logo = $(`<img src='/assets/img/team-logos/${element.nflplayer.nflteamTeamId}.svg' class='prof-logo'>`);
+            col1.append(logo);
+
+            let col2 = $("<div class='column is-5'>"),
+            name = $(`<h5 class='player-info name'>${element.nflplayer.player_name}</h5>`);
+            col2.append(name);
+
+            let col3 = $("<div class'column is-4'>"),
+            position = $(`<h5 class='player-info'>${element.nflplayer.player_position}</h5>`),
+            add = $("<button class='add-btn'>");
+            message = $("<h6 class='message'></h6>")
+            add.append($("<i class='fas fa-plus'></i>")); 
+            col3.append(position, add, message);
+
+            card.append(col1, col2, col3);
+
+            let playerId = element.nflplayer.player_id.toString();
+            card.attr("value", playerId);
+            
+            let pPosition = element.nflplayer.player_position;
+            card.attr("position", pPosition);
+            
+            $("#nfl-populate").append(card);
+        });
+    })
+ }
+
  // handle user click on 'Create Team' button:  get data from cards, put into data object
  // array, validate the array and push to the server to store into the database
 
@@ -169,5 +206,10 @@ const getPlayersByTeam = (teamId) => {
             }
         });
  });
+
+
+ $("roster").ready(function () {
+    populateUserTeam(userName);
+ })
 
 });
