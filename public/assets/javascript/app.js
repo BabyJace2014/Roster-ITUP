@@ -114,15 +114,15 @@ const getPlayersByTeam = (teamId) => {
             // create div card
             let card = $("<div class='card columns profile'>");
             // div columns
-            let col1 = $("<div class='column is-3'>"),
+            let col1 = $("<div class='column is-3 scale-left'>"),
             logo = $(`<img src='/assets/img/team-logos/${teamId}.svg' class='prof-logo'>`);
             col1.append(logo);
 
-            let col2 = $("<div class='column is-5'>"),
+            let col2 = $("<div class='column is-5 scale-center'>"),
             name = $(`<h5 class='player-info name'>${element.player_name}</h5>`);
             col2.append(name);
 
-            let col3 = $("<div class'column is-4'>"),
+            let col3 = $("<div class='column is-4 scale-right'>"),
             position = $(`<h5 class='player-info'>${element.player_position}</h5>`),
             add = $("<button class='add-btn'>");
             message = $("<h6 class='message'></h6>")
@@ -152,15 +152,15 @@ const getPlayersByTeam = (teamId) => {
             // create div card
             let card = $("<div class='card columns profile'>");
             // div columns
-            let col1 = $("<div class='column is-3'>"),
+            let col1 = $("<div class='column is-3 scale-left'>"),
             logo = $(`<img src='/assets/img/team-logos/${element.nflplayer.nflteamTeamId}.svg' class='prof-logo'>`);
             col1.append(logo);
 
-            let col2 = $("<div class='column is-5'>"),
+            let col2 = $("<div class='column is-5 scale-center'>"),
             name = $(`<h5 class='player-info name'>${element.nflplayer.player_name}</h5>`);
             col2.append(name);
 
-            let col3 = $("<div class'column is-4'>"),
+            let col3 = $("<div class='column is-4 scale-right'>"),
             position = $(`<h5 class='player-info'>${element.nflplayer.player_position}</h5>`),
             add = $("<button class='add-btn'>");
             message = $("<h6 class='message'></h6>")

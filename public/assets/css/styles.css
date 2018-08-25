@@ -1,14 +1,16 @@
 
 
-.hero-img {
-    background-image: url("../img/background-footballTexture.png");
-    height: 100%;
-    width: 100%;
-    background-position: center center;
-    position: relative;
+
+.sign {
+    background-image: url("../img/sign.png");
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    background-position: top;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
+    z-index: -1;
 }
 
 .slab {
@@ -17,29 +19,34 @@
     text-align: center;
     border: .1rem solid rgba(190,190,215,.6);
     border-radius: 3rem;
-    background-color: rgba(190,190,215,.6);
+    background-color: rgba(190,190,215,.7);
     padding: 4rem 0;
+    display: flex;
+    flex-direction: column;
 }
 .in-info {
     height: 5rem;
     width: 70%;
     font-family: 'PT Sans Narrow', sans-serif;
     font-size: 3.7rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
     opacity: .7;
 }
 .stn-submit {
     font-size: 2.7rem;
+    width: 25%;
+    align-self: center;
     font-family: 'PT Sans Narrow', sans-serif;
     color: #013369;
     border: .2rem  solid #013369;
     background-color: #f0f0f0;
     border-radius: 1rem;
     padding: 1rem 4rem;
-    margin: 5rem 5rem;
+    margin: 1.5rem 2.5rem;
     transition: 1s;
 }
 .stn-submit:hover, .stn-submit:active {
+    cursor: pointer;
     color: #f0f0f0;
     background-color: rgb(1, 51, 105);
 }
@@ -50,7 +57,7 @@
     margin: 2rem;
     border: .2rem solid rgb(240, 240, 240);
     border-radius: 1rem;
-    background-color: rgba(1, 51, 105,.3);
+    background-color: rgba(1, 51, 105,.6);
     transition: .7s;
 }
 .team-btn:hover {
@@ -70,6 +77,8 @@
     background-color:#013369;
     border-radius: 1rem;
     margin: 0 auto 1rem auto;
+    display: flex;
+    flex-direction: row;
 }
 .prof-logo {
     height: 11rem;
@@ -105,4 +114,42 @@
 .remove-btn:hover {
     cursor: pointer;
     transform: scale(1.3);
+}
+
+@media all and (max-width: 98rem) {
+    .slab {
+        flex-wrap: wrap;
+        flex-grow: 80%;
+        width: 80%
+    }
+}
+
+@media all and (max-width: 76.8rem) {
+    .scale-left, .scale-center, .scale-righ {
+        flex-wrap: nowrap;
+        margin: 0rem;
+    }
+    .scale-left {
+        flex-shrink: 25%;
+        flex-grow: 25%;
+        width: 25%;
+    }
+    .scale-center {
+        flex-shrink: 50%;
+        flex-grow: 50%;
+        width: 50%;
+    }
+    .scale-right {
+        flex-shrink: 33%;
+        flex-grow: 33%;
+        width: 33%;
+    }
+}
+
+@media all and (max-width: 64rem) {
+
+}
+
+@media all and(max-width: 48rem) {
+
 }
