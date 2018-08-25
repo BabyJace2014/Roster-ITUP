@@ -35,9 +35,9 @@ $(document).on("click", ".add-btn", function() {
         var playerId = $(this).parent().parent().attr("value");
 
         var onRoster = { on_roster: true,
-                            id: parseInt(playerId),
-                            name: userName};
-        
+                         id: parseInt(playerId),
+                         name: userName};
+            
         $.ajax( {   url: "/userplayer",
                     method: "PUT",
                     data: onRoster } )
@@ -131,7 +131,7 @@ const getPlayersByTeam = (teamId) => {
             projected = Math.floor(Math.random() * 5) + 1;
             let proTag = $(`<h5 class="player-info">Projected points: ${projected}</h5>`);
             
-            col2.append(name, proTag, info);
+            col2.append(name, proTag);
 
             let col3 = $("<div class='column is-4 scale-right'>"),
             position = $(`<h5 class='player-info'>${element.player_position}</h5>`),
@@ -168,19 +168,14 @@ const getPlayersByTeam = (teamId) => {
             col1.append(logo);
 
             let col2 = $("<div class='column is-5 scale-center'>"),
-            name = $(`<h5 class='player-info name'>${element.nflplayer.player_name}</h5>`),
+            name = $(`<h5 class='player-info name'>${element.nflplayer.player_name}</h5>`);
             projected = Math.floor(Math.random() * 5) + 1,
             proTag = $(`<h5 class="player-info">Projected points: ${projected}</h5>`);
-            col2.append(name, proTag, info);
+            col2.append(name, proTag);
 
             let col3 = $("<div class='column is-4 scale-right'>"),
             position = $(`<h5 class='player-info'>${element.nflplayer.player_position}</h5>`),
             add = $("<button class='add-btn'>");
-
-            if ( element.on_roster === true ) {
-                add.addClass("added");
-            }
-
             message = $("<h6 class='message'></h6>")
             add.append($("<i class='fas fa-plus'></i>")); 
             col3.append(position, add, message);
@@ -199,6 +194,9 @@ const getPlayersByTeam = (teamId) => {
                 addPlayer(card);
             }
         });
+
+        $("#user-team").text(`${response[0].user.userteam_name}'s players`);
+        $("#current-roster").text(`${response[0].user.userteam_name}'s current roster`);
     })
  }
 
