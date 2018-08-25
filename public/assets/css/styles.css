@@ -111,6 +111,18 @@
     border: .2rem solid rgb(91, 223, 91);
     box-shadow: .2rem .1rem .2rem rgba(198, 255, 198, 0.4);
 }
+
+.remove-btn {
+    height: 3rem;
+    width: 3rem;
+    font-size: 2rem;
+    color:  rgb(223, 91, 91);
+    text-align: center;
+    border: .2rem solid rgb(223, 91, 91);
+    border-radius: 1rem;
+    background-color: rgba(51, 68, 51, 0.3);
+    transition: .7s;
+}
 .remove-btn:hover {
     cursor: pointer;
     transform: scale(1.3);

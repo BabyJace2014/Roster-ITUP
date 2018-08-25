@@ -50,22 +50,14 @@ $(document).on("click", ".add-btn", function() {
 });
 
 const addPlayer = (card) => {
-    card.clone().appendTo("#team-populate")
-        .find( ".add-btn" ).css({
-            height: "3rem",
-            width: "3rem",
-            fontSize: "2rem",
-            color: "rgb(223, 91, 91)",
-            textAlign: "center",
-            border: ".2rem solid rgb(223, 91, 91)",
-            borderRadius: "1rem",
-            backgroundColor: "rgba(68, 51, 51, 0.3)",
-        }).html("<i class='fas fa-minus'></i>")
+    card.appendTo("#team-populate")
+        .find( ".add-btn" ).html("<i class='fas fa-minus'></i>")
         .addClass("remove-btn").removeClass("add-btn").removeClass("added");
 }
+
 $(document).on("click", ".remove-btn", function() {
 
-    $(this).parent().parent().remove();
+    removePlayer($(this).parent().parent());
 
     if ( isRosterPage ) { //this is the roster page
 
@@ -85,6 +77,13 @@ $(document).on("click", ".remove-btn", function() {
         });
     }
 });
+
+const removePlayer = (card) => {
+    // card.clone().appendTo("#team-populate")
+    card.appendTo("#nfl-populate")
+        .find( ".remove-btn" ).html("<i class='fas fa-plus'></i>")
+        .addClass("add-btn").removeClass("remove-btn");
+}
 
 $(document).on("click", ".info-btn", function() {
     if($(this).hasClass("infoPop")){
@@ -190,7 +189,7 @@ const getPlayersByTeam = (teamId) => {
             
             $("#nfl-populate").append(card);
 
-            if ( element.on_roster === true ) {
+            if ( isRosterPage && element.on_roster === true ) {
                 addPlayer(card);
             }
         });
