@@ -162,7 +162,7 @@ const getPlayersByTeam = (teamId) => {
             let card = $("<div class='card columns profile'>");
             // div columns
             let col1 = $("<div class='column is-3 scale-left'>"),
-            logo = $(`<img src='/assets/img/team-logos/${element.nflplayer.nflteamTeamId}.svg' class='prof-logo'>`);
+            logo = $("<img src='" + element.nflplayer.player_imgURL + "' class='prof-logo'>");
             col1.append(logo);
 
             let col2 = $("<div class='column is-5 scale-center'>"),
