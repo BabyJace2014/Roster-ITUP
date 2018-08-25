@@ -17,6 +17,10 @@ module.exports = function(sequelize, DataTypes) {
       player_position: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      player_imgURL: {
+        type: DataTypes.STRING,
+        allowNull: false
       }
     });
 
@@ -46,10 +50,19 @@ module.exports = function(sequelize, DataTypes) {
                     }
 
                     if ( addPlayer ) {
+                      var imgURL = players[i].PhotoUrl;
+
+                      if ( !imgURL || imgURL === "" || imgURL.includes("/0.png") ) {
+                        imgURL = "/assets/img/team-logos/" + players[i].Team + ".svg";
+                      } else {
+                        imgURL.replace(/\//g, "/");
+                      }
+
                       var playerData = {  player_id: players[i].PlayerID,
                                           player_name: players[i].Name,
                                           player_position: players[i].FantasyPosition,
-                                          nflteamTeamId: players[i].Team };
+                                          player_imgURL: imgURL,
+                                          nflteamTeamId: players[i].Team, };
                   
                       playerDataArray.push(playerData);
                     }
