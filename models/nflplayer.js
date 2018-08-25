@@ -28,22 +28,41 @@ module.exports = function(sequelize, DataTypes) {
 
                 if ( !result.length ) {
                   var players = require(__dirname + "/../db/nflplayers.json");
-                    
+                  var playerDataArray = [];
+
+                  console.log("Adding up to " + players.length + " players ...");
+
+                  // run through all the players in the JSON file, check their status & add them if appropriate
                   for(var i=0; i<players.length; i++) {
 
-                    if ( players[i].active == 1 ) {
+                    var addPlayer = false;
 
-                      nflplayer.create( { player_id: players[i].playerId,
-                                          player_name: players[i].displayName,
-                                          player_position: players[i].position,
-                                          nflteamTeamId: players[i].team} )
-                            .then( function(result) {
-                            });
+                    if ( players[i].FantasyPosition === "DEF" ||
+                         (players[i].PositionCategory === "OFF" &&
+                          players[i].Active == true &&
+                          players[i].Team != null &&
+                          players[i].FantasyPosition != null ) ) {
+                      addPlayer = true;
+                    }
 
+                    if ( addPlayer ) {
+                      var playerData = {  player_id: players[i].PlayerID,
+                                          player_name: players[i].Name,
+                                          player_position: players[i].FantasyPosition,
+                                          nflteamTeamId: players[i].Team };
+                  
+                      playerDataArray.push(playerData);
                     }
                   }
+
+                  console.log("Adding " + playerDataArray.length + " NFL fantasy players ...");
+
+                  nflplayer.bulkCreate( playerDataArray )
+                           .then( function(result) {
+                      console.log("NFL Players added!");
+                  });
                 }
-              });
+      });
     };
 
     // Associating nflplayer with nflteam

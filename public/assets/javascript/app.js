@@ -8,6 +8,8 @@ if ( !userName || userName === "" ) {
     window.location.replace("/");
 }
 
+var isRosterPage = $("title").text().includes("Roster page");
+
 $(".team-btn").click(function() {
     if($(this).hasClass("active")){
         $(this).removeClass("active")
@@ -30,8 +32,27 @@ $(document).on("click", ".add-btn", function() {
     } else {
         $(this).addClass("added").find(".message").text("Added");
         addPlayer($(this).parent().parent());
+
+        if ( isRosterPage ) { //this is the roster page
+
+            var playerId = $(this).parent().parent().attr("value");
+
+            var onRoster = { on_roster: true,
+                             id: parseInt(playerId),
+                             name: userName};
+            
+            $.ajax( {   url: "/userplayer",
+                        method: "PUT",
+                        data: onRoster } )
+                .then( function(result) {
+                    if (result.error) {
+                        $("#saveRosterErrMsg").text(result.error);
+                    }
+            });
+        }
     }
 });
+
 const addPlayer = (card) => {
     card.clone().appendTo("#team-populate")
         .find( ".add-btn" ).css({
@@ -54,6 +75,24 @@ $(document).on("click", ".remove-btn", function() {
     //nflCard.find(".add.btn").removeClass("active").find(".message").text("");
 
     $(this).parent().parent().remove();
+
+    if ( isRosterPage ) { //this is the roster page
+
+        var playerId = $(this).parent().parent().attr("value");
+
+        var onRoster = { on_roster: false,
+                         id: parseInt(playerId),
+                         name: userName};
+        
+        $.ajax( {   url: "/userplayer",
+                    method: "PUT",
+                    data: onRoster } )
+            .then( function(result) {
+                if (result.error) {
+                    $("#saveRosterErrMsg").text(result.error);
+                }
+        });
+    }
 });
 
 const clearNFL = () => {
@@ -160,7 +199,7 @@ const getPlayersByTeam = (teamId) => {
         var playerId = $(this).attr("value");
         var playerPosition = $(this).attr("position");
 
-        switch (playerPosition ) {
+        switch (playerPosition) {
             case "QB":  qb++
                         break;
 
@@ -185,19 +224,13 @@ const getPlayersByTeam = (teamId) => {
         playerDataArray.push( playerData );
     });
     
-    // make sure we have 18 players
-    if ( playerDataArray.length != 18) {
-        $("#createTeamErrMsg").text("You need to select 18 players to create a team");
+    // make sure we have 18 players & all the required positions are covered
+    if ( (playerDataArray.length != 18) || ( qb < 1 || rb < 2 || wr < 3 || te < 1 || def < 1 ) ){
+        $("#createTeamErrMsg").text("You need 9 players and at least (1)QB, (2)RB, (3)WR, (1)TE & (1)DEF to form a roster");
         return;
     }
 
-    // make sure we have all the required positions covered
-    if ( qb < 1 || rb < 2 || wr < 3 || te < 1 || def < 1 ) {
-        $("#createTeamErrMsg").text("You need (1)QB, (2)RB, (3)WR, (1)TE & (1)DEF to create a team");
-        return;
-    }
-
-    $.post("/team", {data: playerDataArray})
+    $.post("/userteam", {data: playerDataArray})
         .then( function(result) {
             if ( result.error ) {
                 $("#createTeamErrMsg").text(result.error);
@@ -206,7 +239,6 @@ const getPlayersByTeam = (teamId) => {
             }
         });
  });
-
 
  $("roster").ready(function () {
     populateUserTeam(userName);
