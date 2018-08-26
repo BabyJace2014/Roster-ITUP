@@ -18,12 +18,10 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING,
         allowNull: false
       },
-      // ERROR >>>
-      // >>> Unhandled rejection SequelizeDatabaseError: Unknown column 'player_imgURL' in 'field list'
-      // player_imgURL: {
-      //   type: DataTypes.STRING,
-      //   allowNull: false
-      // }
+      player_imgURL: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }
     });
 
     // adding class method to populate the nflplayers table with seed data if the table is empty
