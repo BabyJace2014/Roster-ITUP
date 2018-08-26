@@ -155,8 +155,8 @@ $(function() {
 
                 // ERROR CODE
 
-                // logo = $("<img src='" + element.player_imgURL + "' class='prof-logo'>");
-                // col1.append(logo);
+                logo = $("<img src='" + element.player_imgURL + "' class='prof-logo'>");
+                col1.append(logo);
 
                 let col2 = $("<div class='column is-5 scale-center'>"),
                 name = $(`<h5 class='player-info name'>${element.player_name}</h5>`);
@@ -203,8 +203,8 @@ $(function() {
                 
                 // ERROR CODE
                 
-                // logo = $("<img src='" + element.nflplayer.player_imgURL + "' class='prof-logo'>");
-                // col1.append(logo);
+                logo = $("<img src='" + element.nflplayer.player_imgURL + "' class='prof-logo'>");
+                col1.append(logo);
 
 
                 let col2 = $("<div class='column is-5 scale-center'>"),

@@ -17,7 +17,9 @@ module.exports = function(sequelize, DataTypes) {
       player_position: {
         type: DataTypes.STRING,
         allowNull: false
-      }//, ERROR CODE
+      },
+      // ERROR >>>
+      // >>> Unhandled rejection SequelizeDatabaseError: Unknown column 'player_imgURL' in 'field list'
       // player_imgURL: {
       //   type: DataTypes.STRING,
       //   allowNull: false
