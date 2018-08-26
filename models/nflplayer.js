@@ -17,11 +17,11 @@ module.exports = function(sequelize, DataTypes) {
       player_position: {
         type: DataTypes.STRING,
         allowNull: false
-      },
-      player_imgURL: {
-        type: DataTypes.STRING,
-        allowNull: false
-      }
+      }//, ERROR CODE
+      // player_imgURL: {
+      //   type: DataTypes.STRING,
+      //   allowNull: false
+      // }
     });
 
     // adding class method to populate the nflplayers table with seed data if the table is empty
