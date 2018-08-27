@@ -3,6 +3,7 @@ $(function() {
     // variable for NFL team ID reference
     let teamId;
     let userName = sessionStorage.getItem("userName");
+    let team = { qb: 0, rb: 0, wr: 0, te: 0, def: 0, total: 0 };
 
     if ( !userName || userName === "" ) {
         window.location.replace("/");
@@ -24,11 +25,13 @@ $(function() {
             getPlayersByTeam(teamId);
         }
     });
-
-    $("roster").ready(function () {
+    $("team").ready(() => {
+       numberOfPlayers("new", 0);
+    });
+    $("roster").ready(() => {
         populateUserTeam(userName);
     });
-
+    
 
     /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
     /* +++++++++++++++++++++++++++++++  ON CLICK EVENT LISTENERS  ++++++++++++++++++++++++++++++ */
@@ -43,7 +46,8 @@ $(function() {
     // ADD BUTTON
     $(document).on("click", ".add-btn", function() {
         
-        addPlayer($(this).parent().parent(), $(this));
+        numberOfPlayers($(this), 1);
+        addPlayer($(this).parent().parent());
 
         if ( isRosterPage ) { //this is the roster page
 
@@ -67,6 +71,7 @@ $(function() {
     // REMOVE BUTTON
     $(document).on("click", ".remove-btn", function() {
 
+        numberOfPlayers($(this), -1);
         removePlayer($(this).parent().parent());
 
         if ( isRosterPage ) { //this is the roster page
@@ -112,8 +117,8 @@ $(function() {
     /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
     // ADD PLAYER FUNCTION
-    const addPlayer = (card, playerInfo) => {
-        console.log(playerInfo);
+    const addPlayer = (card) => {
+        
         card.appendTo("#team-populate")
             .find( ".add-btn" ).html("<i class='fas fa-minus'></i>")
             .addClass("remove-btn").removeClass("add-btn").removeClass("added"); 
@@ -124,6 +129,48 @@ $(function() {
         card.appendTo("#nfl-populate")
             .find( ".remove-btn" ).html("<i class='fas fa-plus'></i>")
             .addClass("add-btn").removeClass("remove-btn");
+    }
+
+    // NUMBER OF REQUIRED PLAYERS FUNCTION
+    const numberOfPlayers = (infoTag, modifier) => {
+
+        if(modifier === 0) {
+            $(".pos").html(() => {
+                return `<h5 style="color:#0B2265">Current team requirements:</h5>`
+                        + `<h5 style="color:#003F2D"><strong>QB:</strong>  ${team.qb} of 1, &emsp; <strong>RB:</strong>  ${team.rb} of 2, &emsp; <strong>WR:</strong>  ${team.wr}  of 3`
+                        + `<h5 style="color:#003F2D"><strong>TE:</strong>  ${team.te} of 1, &emsp; <strong>DEF:</strong>  ${team.def} of 1, &emsp; <strong>Total:</strong>  ${team.total}  of 19,</h5><br /><br /><br />`;
+            });    
+        } else {
+            let position = $(infoTag).attr("position");
+            team.total += modifier;
+            switch (position) {
+                case "QB":  team.qb += modifier;
+                            break;
+
+                case "RB":  team.rb += modifier;
+                            break;
+                
+                case "WR":  team.wr += modifier;
+                            break;
+
+                case "TE":  team.te += modifier;
+                            break;
+
+                case "DEF": team.def += modifier;
+                            break;
+            }
+           
+            $(".pos").html(() => {
+                return `<h5 style="color:#0B2265">Current team requirements:</h5>`
+                        + `<h5 style="color:#003F2D"><strong>QB:</strong>  ${team.qb} of 1, &emsp; <strong>RB:</strong>  ${team.rb} of 2, &emsp; <strong>WR:</strong>  ${team.wr}  of 3`
+                        + `<h5 style="color:#003F2D"><strong>TE:</strong>  ${team.te} of 1, &emsp; <strong>DEF:</strong>  ${team.def} of 1, &emsp; <strong>Total:</strong>  ${team.total}  of 19,</h5><br /><br /><br />`;
+            });
+        }
+        if (team.total > 0) {
+            $("div.disabled").removeClass("disabled");
+        } else {
+            $("div.disabled").addClass("disabled")
+        }
     }
 
     // CLEAR FUNCTIONS
