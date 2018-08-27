@@ -138,7 +138,7 @@ $(function() {
             $(".pos").html(() => {
                 return `<h5 style="color:#0B2265">Current team requirements:</h5>`
                         + `<h5 style="color:#003F2D"><strong>QB:</strong>  ${team.qb} of 1, &emsp; <strong>RB:</strong>  ${team.rb} of 2, &emsp; <strong>WR:</strong>  ${team.wr}  of 3`
-                        + `<h5 style="color:#003F2D"><strong>TE:</strong>  ${team.te} of 1, &emsp; <strong>DEF:</strong>  ${team.def} of 1, &emsp; <strong>Total:</strong>  ${team.total}  of 19,</h5><br /><br /><br />`;
+                        + `<h5 style="color:#003F2D"><strong>TE:</strong>  ${team.te} of 1, &emsp; <strong>DEF:</strong>  ${team.def} of 1, &emsp; <strong>Total:</strong>  ${team.total}  of 18,</h5><br /><br /><br />`;
             });    
         } else {
             let position = $(infoTag).attr("position");
@@ -163,13 +163,8 @@ $(function() {
             $(".pos").html(() => {
                 return `<h5 style="color:#0B2265">Current team requirements:</h5>`
                         + `<h5 style="color:#003F2D"><strong>QB:</strong>  ${team.qb} of 1, &emsp; <strong>RB:</strong>  ${team.rb} of 2, &emsp; <strong>WR:</strong>  ${team.wr}  of 3`
-                        + `<h5 style="color:#003F2D"><strong>TE:</strong>  ${team.te} of 1, &emsp; <strong>DEF:</strong>  ${team.def} of 1, &emsp; <strong>Total:</strong>  ${team.total}  of 19,</h5><br /><br /><br />`;
+                        + `<h5 style="color:#003F2D"><strong>TE:</strong>  ${team.te} of 1, &emsp; <strong>DEF:</strong>  ${team.def} of 1, &emsp; <strong>Total:</strong>  ${team.total}  of 18,</h5><br /><br /><br />`;
             });
-        }
-        if (team.total > 0) {
-            $("div.disabled").removeClass("disabled");
-        } else {
-            $("div.disabled").addClass("disabled")
         }
     }
 
@@ -200,7 +195,10 @@ $(function() {
                 // div columns
                 let col1 = $("<div class='column is-3 scale-left'>");
 
-                // ERROR CODE
+                let playerId = element.player_id;
+                let pPosition = element.player_position;
+                card.attr("value", playerId);
+                card.attr("position", pPosition);
 
                 logo = $("<img src='" + element.player_imgURL + "' class='prof-logo'>");
                 col1.append(logo);
@@ -212,16 +210,11 @@ $(function() {
                 
                 col2.append(name, proTag);
 
-                
-        
-
                 let col3 = $("<div class='column is-4 scale-right'>"),
                 position = $(`<h5 class='player-info'>${element.player_position}</h5>`),
                 add = $("<button class='add-btn'>");
 
-                let playerId = element.player_id;
                 add.attr("value", playerId);
-                let pPosition = element.player_position;
                 add.attr("position", pPosition);
 
                 message = $("<h6 class='message'></h6>")
