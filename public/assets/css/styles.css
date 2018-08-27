@@ -85,14 +85,25 @@
     width: 8rem;
     background-repeat: no-repeat;
 }
+.team-logo-small {
+    height: 5rem;
+    width: 5rem;
+    float: left;
+    margin-top: .6rem;
+}
 .player-info {
     text-align: left;
 }
+.player-position {
+    text-align: right;
+}
 .add-btn {
-    height: 3rem;
-    width: 3rem;
-    font-size: 2rem;
+    height: 4rem;
+    width: 4rem;
+    font-size: 3rem;
     color:  rgb(74, 114, 74);
+    margin-top: 4rem;
+    float: right;
     text-align: center;
     border: .2rem solid rgb(74, 114, 74);
     border-radius: 1rem;
@@ -113,11 +124,13 @@
 }
 
 .remove-btn {
-    height: 3rem;
-    width: 3rem;
-    font-size: 2rem;
+    height: 4rem;
+    width: 4rem;
+    font-size: 3rem;
     color:  rgb(223, 91, 91);
     text-align: center;
+    margin-top: 4rem;
+    float: right;
     border: .2rem solid rgb(223, 91, 91);
     border-radius: 1rem;
     background-color: rgba(51, 68, 51, 0.3);
@@ -129,12 +142,13 @@
 }
 
 .info-btn {
-    height: 3rem;
-    width: 3rem;
-    font-size: 2rem;
+    height: 4rem;
+    width: 4rem;
+    font-size: 3rem;
     margin-top: 1rem;
     color:  rgb(74, 105, 114);
     text-align: center;
+    float: right;
     border: .2rem solid rgb(74, 105, 114);
     border-radius: 1rem;
     background-color: rgba(51, 68, 51, .3);
