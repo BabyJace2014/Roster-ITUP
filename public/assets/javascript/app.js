@@ -76,7 +76,7 @@ $(function() {
 
         if ( isRosterPage ) { //this is the roster page
 
-            var playerId = $(this).attr("value");
+            var playerId = $(this).parent().parent().attr("value");
 
             var onRoster = { on_roster: false,
                             id: parseInt(playerId),
