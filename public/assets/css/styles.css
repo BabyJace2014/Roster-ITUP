@@ -140,6 +140,7 @@
     background-color: rgba(51, 68, 51, .3);
     transition: .7s;
 }
+
 .info-btn:hover {
     cursor: pointer;
     transform: scale(1.3);
@@ -264,3 +265,15 @@
         width: 96%
     }
 }
+
+
+/* .foot {
+    height: 5rem;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    font-size: 1.2rem;
+    border: .5rem solid rgb(1, 51, 105);
+    background-color: #001327
+} */
