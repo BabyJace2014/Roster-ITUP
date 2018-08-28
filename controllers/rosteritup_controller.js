@@ -3,6 +3,18 @@
 /////////////////////////////////////////////////////////////////
 
 var db = require("../models");
+const fdClientModule = require('fantasydata-node-client');
+
+///////////////////////////////////////////////////
+// Setup Fantasy Data Client
+///////////////////////////////////////////////////
+
+const keys = {
+    'NFLv3StatsClient': process.env.FANDATA_PRIMARY_KEY,
+    'NFLv3ProjectionsClient': process.env.FANDATA_SECONDARY_KEY
+};
+
+const FantasyDataClient = new fdClientModule(keys);
 
 /////////////////////////////////////////////////////////////////
 // Setup the Express Router and its routes & export it
@@ -186,4 +198,15 @@ module.exports = function(app) {
                     });
     });
 
+    //GET route for returning NFL player stats from  the Fantasy Data API
+    app.get("/api/fantasydata", function(req, res) {
+
+        FantasyDataClient.NFLv3ProjectionsClient.getProjectedPlayerSeasonStatsPromise('2018REG')
+    .then((resp) => {
+        console.log(resp);
+    })
+    .catch((err) => {
+        // handle errors
+    });
+});
 }
