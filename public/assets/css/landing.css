@@ -38,7 +38,11 @@ body {
     background-color: #013369;
 }
 .bottom {
+    transform: translateY(30vh);
     padding-top: 9rem;
+}
+.btn-open {
+    transform: translatey(25vh);
 }
 
 .slideshow { 
@@ -68,18 +72,22 @@ body {
 }
 
 .slideshow li:nth-child(1) { 
-    background-image: url("../img/hero-img2.png") 
+    /* background-image: url("../img/hero-img2.png")  */
+    background-image: url("http://getwallpapers.com/wallpaper/full/3/2/f/480350.jpg");
 }
 .slideshow li:nth-child(2) { 
-    background-image: url("../img/hero-img3.png");
+    /* background-image: url("../img/hero-img3.png"); */
+    background-image: url("https://wallpaper-house.com/data/out/9/wallpaper2you_366094.jpg");
     animation-delay: 6s; 
 }
 .slideshow li:nth-child(3) { 
-    background-image: url("../img/hero-img5.png");
+    /* background-image: url("../img/hero-img5.png"); */
+    background-image: url("https://i.ytimg.com/vi/Ht2ygdLREes/maxresdefault.jpg");
     animation-delay: 12s; 
 }
 .slideshow li:nth-child(4) { 
-    background-image: url("../img/hero-img4.png");
+    /* background-image: url("../img/hero-img4.png"); */
+    background-image: url("http://desktopbackgrounds.org/wp-content/uploads/2018/01/Pictures-images-NFL-backgrounds-hd-wallpapers-high-definition-amazing-cool-desktop-wallpapers-for-windows-apple-tablet-free-2048x1089-758x403.jpg");
     animation-delay: 18s; 
 }
 

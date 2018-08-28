@@ -1,30 +1,23 @@
 $(function() {
 
     // variable for NFL team ID reference
+    //const Tether = require("Tether");
     let teamId;
     let userName = sessionStorage.getItem("userName");
     let team = { qb: 0, rb: 0, wr: 0, te: 0, def: 0, total: 0 };
-
+    
     if ( !userName || userName === "" ) {
         window.location.replace("/");
     }
 
+    var isRosterPage = $("title").text().includes("Roster page");
 
     /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
     /* ++++++++++++++++++++++++++++  ON PAGE LOAD SPECIFIC FUNCTIONS +++++++++++++++++++++++++++ */
     /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
-    var isRosterPage = $("title").text().includes("Roster page");
-        $(".team-btn").click(function() {
-            if($(this).hasClass("active")){
-            $(this).removeClass("active")
-        } else {
-            $(this).addClass("active");
-            teamId = $(this).attr("value");
-            clearNFL();
-            getPlayersByTeam(teamId);
-        }
-    });
+    
+       
     $("team").ready(() => {
        numberOfPlayers("new", 0);
     });
@@ -36,6 +29,17 @@ $(function() {
     /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
     /* +++++++++++++++++++++++++++++++  ON CLICK EVENT LISTENERS  ++++++++++++++++++++++++++++++ */
     /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+    $(".team-btn").click(function() {
+            if($(this).hasClass("active")){
+            $(this).removeClass("active")
+        } else {
+            $(this).addClass("active");
+            teamId = $(this).attr("value");
+            clearNFL();
+            getPlayersByTeam(teamId);
+        }
+    });
 
     // TEAM BUTTON
     $(".team-btn").click(function() {
@@ -95,20 +99,9 @@ $(function() {
 
     // INFO BUTTON
     $(document).on("click", ".info-btn", function() {
-        if($(this).hasClass("infoPop")){
-            $(this).removeClass("infoPop")
-            document.getElementById("myPopup").classList.toggle("show");
-        } else {
-            $(this).addClass("infoPop");
-
-            // get data 
-            let score = $(this).parent().attr("data"),
-                data = [["-2", "-1", "C", "P"], score];
-            
-
-            $(".popuptext").text("This is a popup!") 
-            document.getElementById("myPopup").classList.toggle("show");
-        }
+        
+        $(this).popover("toggle");
+        //$(this).popover();
     });
 
 
@@ -249,14 +242,17 @@ $(function() {
                 name = $(`<h5 class='player-info name'>${element.nflplayer.player_name}</h5>`);
                 projected = Math.floor(Math.random() * 5) + 1,
                 proTag = $(`<h5 class="player-info">Projected points: ${projected}</h5>`);
-                teamLogo = $(`<img src='/assets/img/team-logos/${element.nflplayer.nflteamTeamId}.svg' class='team-logo-small' />`)
+                teamLogo = $(`<img src='/assets/img/team-logos/${element.nflplayer.nflteamTeamId}.svg' 
+                    class='team-logo-small' />`)
 
-                let info = $(`<div class='popup'>`),
-                bubble = $("<div class='popuptext linechart' id='myPopup'></h5>")
-                infoBtn = $("<button class='info-btn'>");
+                // let info = $(`<div class='popup'>`),
+                // bubble = $("<div class='popuptext linechart' id='myPopup'></h5>")
+                infoBtn = $(`<button class='info-btn' data-toggle='popover' data-placement='top' 
+                    data-content='data goes here' title='${element.nflplayer.player_name}'s weekly scores'
+                    data-trigger='focus'>`);
                 infoBtn.append($("<i class='fas fa-info'></i>"));
-                info.append(bubble, infoBtn);
-                col2.append(name, proTag, teamLogo, info);
+                // info.append(bubble);
+                col2.append(name, proTag, teamLogo, infoBtn);
 
                 let col3 = $("<div class='column is-2 scale-right'>"),
                 position = $(`<h5 class='player-position'>${element.nflplayer.player_position}</h5>`),
