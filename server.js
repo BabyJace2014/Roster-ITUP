@@ -6,6 +6,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
 var db = require("./models");
+require("dotenv").config();
 
 /////////////////////////////////////////////////////////////////
 // Sets up the Express App
@@ -33,9 +34,8 @@ app.set("view engine", "handlebars");
 /////////////////////////////////////////////////////////////////
 // Initliazes the db connection & sets the Express App listening
 /////////////////////////////////////////////////////////////////
-
-// db.sequelize.sync({ force: true }).then( function () {
-db.sequelize.sync().then( function () {
+//db.sequelize.sync({ force: true }).then( function () {
+ db.sequelize.sync().then( function () {
     db.user.seedDB();
     db.nflteam.seedDB();
     db.nflplayer.seedDB();
